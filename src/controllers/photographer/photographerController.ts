@@ -8,6 +8,7 @@ export class PhotographerController {
   constructor() {
     this.photographerService = new PhotographerService();
   }
+  // @ts-ignore
 
   async createPhotographer(req: Request, res: Response, next: NextFunction) {
     try {
@@ -19,6 +20,7 @@ export class PhotographerController {
       next(error);
     }
   }
+  // @ts-ignore
 
   async getPhotographers(req: Request, res: Response, next: NextFunction) {
     try {
@@ -28,6 +30,7 @@ export class PhotographerController {
       next(error);
     }
   }
+  // @ts-ignore
 
   async getPhotographerById(req: Request, res: Response, next: NextFunction) {
     try {

@@ -5,9 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const authRoutes_1 = __importDefault(require("./auth/authRoutes"));
 const venueRoutes_1 = __importDefault(require("./venue/venueRoutes"));
+const photographerRoutes_1 = __importDefault(require("./photographer/photographerRoutes"));
 const registerRoutes = (app) => {
     app.use("/api/auth", authRoutes_1.default);
     app.use("/api/venues", venueRoutes_1.default);
+    app.use("/api/photographers", photographerRoutes_1.default);
     app.get("/health", (_req, res) => {
         res.status(200).json({ status: "OK", message: "Server is running" });
     });

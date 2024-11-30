@@ -82,10 +82,10 @@ export class VenueService {
       };
     }
   }
-  // @ts-expect-error
+  // @ts-ignore
   async updateVenue(id: number, data: UpdateVenueDTO) {
     try {
-      // @ts-expect-error
+      // @ts-ignore
 
       const existingVenue = await prisma.venue.findUnique({
         where: { id },

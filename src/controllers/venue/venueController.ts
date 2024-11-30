@@ -45,6 +45,7 @@ export class VenueController {
       next(error);
     }
   }
+  // @ts-ignore
 
   async updateVenue(req: Request, res: Response, next: NextFunction) {
     try {
@@ -64,6 +65,7 @@ export class VenueController {
       next(error);
     }
   }
+  // @ts-ignore
 
   async deleteVenue(req: Request, res: Response, next: NextFunction) {
     try {

@@ -744,7 +744,209 @@ const swaggerDocument = {
                     }
                 }
             }
-        }
+        }, "/api/photographers": {
+            get: {
+                tags: ["Photographers"],
+                summary: "Get all photographers",
+                description: "Retrieve a list of all wedding photographers",
+                responses: {
+                    "200": {
+                        description: "Success",
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    type: "object",
+                                    properties: {
+                                        status: {
+                                            type: "boolean",
+                                            example: true
+                                        },
+                                        message: {
+                                            type: "string",
+                                            example: "Photographers retrieved successfully"
+                                        },
+                                        data: {
+                                            type: "array",
+                                            items: {
+                                                $ref: "#/components/schemas/Photographer"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        description: "Server error",
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    type: "object",
+                                    properties: {
+                                        status: {
+                                            type: "boolean",
+                                            example: false
+                                        },
+                                        message: {
+                                            type: "string",
+                                            example: "Internal server error"
+                                        },
+                                        data: {
+                                            type: "null"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            post: {
+                tags: ["Photographers"],
+                summary: "Create a new photographer",
+                security: [{ bearerAuth: [] }],
+                requestBody: {
+                    required: true,
+                    content: {
+                        "application/json": {
+                            schema: {
+                                type: "object",
+                                required: [
+                                    "name",
+                                    "email",
+                                    "phone",
+                                    "location",
+                                    "specialties",
+                                    "price",
+                                    "packages",
+                                    "experience",
+                                    "bio"
+                                ],
+                                properties: {
+                                    name: {
+                                        type: "string",
+                                        description: "Photographer's name"
+                                    },
+                                    email: {
+                                        type: "string",
+                                        format: "email",
+                                        description: "Photographer's email"
+                                    },
+                                    phone: {
+                                        type: "string",
+                                        description: "Contact phone number"
+                                    },
+                                    location: {
+                                        type: "string",
+                                        description: "Service area/location"
+                                    },
+                                    specialties: {
+                                        type: "array",
+                                        items: {
+                                            type: "string"
+                                        },
+                                        description: "Photography specialties"
+                                    },
+                                    portfolio: {
+                                        type: "array",
+                                        items: {
+                                            type: "string"
+                                        },
+                                        description: "Portfolio image URLs"
+                                    },
+                                    price: {
+                                        type: "number",
+                                        description: "Base price for services"
+                                    },
+                                    packages: {
+                                        type: "array",
+                                        items: {
+                                            type: "object",
+                                            properties: {
+                                                name: {
+                                                    type: "string"
+                                                },
+                                                description: {
+                                                    type: "string"
+                                                },
+                                                price: {
+                                                    type: "number"
+                                                },
+                                                features: {
+                                                    type: "array",
+                                                    items: {
+                                                        type: "string"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        description: "Available photography packages"
+                                    },
+                                    experience: {
+                                        type: "integer",
+                                        description: "Years of experience"
+                                    },
+                                    bio: {
+                                        type: "string",
+                                        description: "Photographer's bio/description"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                responses: {
+                    "201": {
+                        description: "Photographer created successfully",
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    $ref: "#/components/responses/PhotographerResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        description: "Bad request"
+                    },
+                    "401": {
+                        description: "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/photographers/{id}": {
+            get: {
+                tags: ["Photographers"],
+                summary: "Get photographer by ID",
+                parameters: [
+                    {
+                        name: "id",
+                        in: "path",
+                        required: true,
+                        schema: {
+                            type: "integer"
+                        },
+                        description: "Photographer ID"
+                    }
+                ],
+                responses: {
+                    "200": {
+                        description: "Success",
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    $ref: "#/components/responses/PhotographerResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        description: "Photographer not found"
+                    }
+                }
+            }
+        },
     },
 };
 exports.default = swaggerDocument;
