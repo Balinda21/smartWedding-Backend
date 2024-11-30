@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  CLIENT
+  PHOTOGRAPHER
+  VENDOR
+}
+
+model User {
+  id          Int      @id @default(sequence())
+  email       String   @unique
+  password    String
+  name        String?
+  role        UserRole @default(CLIENT)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([email])
+}
+
+model Venue {
+  id            Int       @id @default(sequence())
+  name          String
+  description   String
+  location      String
+  address       String
+  capacity      Int       
+  price         Float     
+  images        String[]  
+  amenities     String[]  
+  isAvailable   Boolean   @default(true)
+  features      String[]  
+  squareFootage Int?      
+  parkingSpaces Int?      
+  
+  hasIndoorSpace     Boolean   @default(true)
+  hasOutdoorSpace    Boolean   @default(true)
+  indoorCapacity     Int?
+  outdoorCapacity    Int?
+  
+  minimumHours       Int       @default(4)  
+  setupTime          Int       @default(2)  
+  cleanupTime        Int       @default(1)  
+  availableDays      String[]  
+  
+  depositRequired    Float     
+  cancellationPolicy String
+  insuranceRequired  Boolean   @default(true)
+  noiseRestrictions String?
+  
+  allowsExternalCatering Boolean @default(true)
+  preferredVendors     String[]  
+  
+  providesSeating      Boolean   @default(true)
+  seatingCapacity      Int?
+  providesCatering     Boolean   @default(false)
+  providesDecor        Boolean   @default(false)
+  
+  contactName     String
+  contactEmail    String
+  contactPhone    String
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([location])
+  @@index([price])
+  @@index([capacity])
+}
+// prisma/schema.prisma
+model Photographer {
+  id          Int      @id @default(sequence())
+  name        String
+  email       String   @unique
+  phone       String
+  location    String
+  specialties String[]  // e.g., ["Wedding", "Pre-wedding", "Traditional"]
+  portfolio   String[]  // Array of image URLs
+  price       Float     // Base price for services
+  packages    Json      // Single JSON field containing array of packages
+  experience  Int       // Years of experience
+  rating      Float?    // Average rating
+  available   Boolean   @default(true)
+  bio         String    // Brief description/bio
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([location])
+  @@index([price])
+}
