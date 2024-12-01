@@ -1,4 +1,4 @@
-// src/types/venue.types.ts
+// src/types/venue/venue.types.ts
 export interface CreateVenueDTO {
   name: string;
   description: string;
@@ -33,6 +33,9 @@ export interface CreateVenueDTO {
   contactEmail: string;
   contactPhone: string;
 }
+
+// Add this type for updates
+export type UpdateVenueDTO = Partial<CreateVenueDTO>;
 
 export interface VenueSearchParams {
   location?: string;

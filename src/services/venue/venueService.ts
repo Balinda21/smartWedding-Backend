@@ -1,13 +1,10 @@
 // src/services/venue.service.ts
-import { PrismaClient } from "@prisma/client";
-import { CreateVenueDTO } from "../../types/venue/venue.types";
-
-const prisma = new PrismaClient();
+import { CreateVenueDTO, UpdateVenueDTO } from "../../types/venue/venue.types";
+import { prisma } from "../../lib/prisma";
 
 export class VenueService {
   async createVenue(data: CreateVenueDTO) {
     try {
-      // @ts-ignore
       const venue = await prisma.venue.create({
         data,
       });
@@ -29,8 +26,6 @@ export class VenueService {
 
   async getAllVenues() {
     try {
-      // @ts-ignore
-
       const venues = await prisma.venue.findMany({
         orderBy: {
           createdAt: "desc",
@@ -54,8 +49,6 @@ export class VenueService {
 
   async getVenueById(id: number) {
     try {
-      // @ts-ignore
-
       const venue = await prisma.venue.findUnique({
         where: { id },
       });
@@ -82,11 +75,9 @@ export class VenueService {
       };
     }
   }
-  // @ts-ignore
+
   async updateVenue(id: number, data: UpdateVenueDTO) {
     try {
-      // @ts-ignore
-
       const existingVenue = await prisma.venue.findUnique({
         where: { id },
       });
@@ -98,7 +89,7 @@ export class VenueService {
           data: null,
         };
       }
-      // @ts-ignore
+
       const venue = await prisma.venue.update({
         where: { id },
         data,
@@ -121,7 +112,6 @@ export class VenueService {
 
   async deleteVenue(id: number) {
     try {
-      // @ts-ignore
       const existingVenue = await prisma.venue.findUnique({
         where: { id },
       });
@@ -133,7 +123,6 @@ export class VenueService {
           data: null,
         };
       }
-      // @ts-ignore
 
       await prisma.venue.delete({
         where: { id },

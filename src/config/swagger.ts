@@ -468,11 +468,7 @@ const swaggerDocument: SwaggerOptions = {
             description: "Bad request"
           }
         }
-      }
-    },
-
-  
-    "/api/all/venues": {
+      },
       get: {
         tags: ["Venues"],
         summary: "Get all venues",
@@ -530,6 +526,10 @@ const swaggerDocument: SwaggerOptions = {
         }
       }
     },
+
+  
+   
+
     "/api/venues/{id}": {
       get: {
         tags: ["Venues"],
@@ -747,7 +747,9 @@ const swaggerDocument: SwaggerOptions = {
           }
         }
       }
-    },"/api/photographers": {
+    },
+    
+"/api/photographers": {
  get: {
    tags: ["Photographers"],
    summary: "Get all photographers",

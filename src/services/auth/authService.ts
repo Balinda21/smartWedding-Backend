@@ -1,16 +1,14 @@
 // src/services/auth.service.ts
-import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { config } from "../../config/config";
+import { prisma } from "../../lib/prisma";
 import {
   UserRegisterRequest,
   AuthResponse,
   LoginRequest,
   LoginResponse,
 } from "../../types/auth/user.types";
-
-const prisma = new PrismaClient();
 
 export class AuthService {
   async register(data: UserRegisterRequest): Promise<AuthResponse> {
@@ -30,7 +28,6 @@ export class AuthService {
       const user = await prisma.user.create({
         data: {
           email: data.email,
-          // @ts-ignore
 
           password: await bcrypt.hash(data.password, 10),
           name: data.name || null,
@@ -41,14 +38,12 @@ export class AuthService {
         {
           userId: user.id,
           email: user.email,
-          // @ts-ignore
 
           role: user.role,
         },
         config.jwt.secret,
         { expiresIn: config.jwt.expiresIn }
       );
-      // @ts-ignore
 
       const { password: _, ...userWithoutPassword } = user;
 
@@ -56,8 +51,6 @@ export class AuthService {
         status: true,
         message: "Registration successful",
         data: {
-          // @ts-ignore
-
           user: userWithoutPassword,
           token,
         },
@@ -86,7 +79,6 @@ export class AuthService {
           data: null,
         };
       }
-      // @ts-ignore
 
       const validPassword = await bcrypt.compare(data.password, user.password);
       if (!validPassword) {
@@ -102,14 +94,12 @@ export class AuthService {
         {
           userId: user.id,
           email: user.email,
-          // @ts-ignore
 
           role: user.role,
         },
         config.jwt.secret,
         { expiresIn: config.jwt.expiresIn }
       );
-      // @ts-ignore
 
       const { password: _, ...userWithoutPassword } = user;
 
@@ -117,8 +107,6 @@ export class AuthService {
         status: true,
         message: "Login successful",
         data: {
-          // @ts-ignore
-
           user: userWithoutPassword,
           token,
         },

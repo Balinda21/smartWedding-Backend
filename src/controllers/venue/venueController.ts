@@ -17,7 +17,7 @@ export class VenueController {
       next(error);
     }
   }
-  // @ts-ignore
+
   async getAllVenues(req: Request, res: Response, next: NextFunction) {
     try {
       const result = await this.venueService.getAllVenues();
@@ -26,7 +26,7 @@ export class VenueController {
       next(error);
     }
   }
-  // @ts-ignore
+
   async getVenueById(req: Request, res: Response, next: NextFunction) {
     try {
       const id = parseInt(req.params.id);
@@ -45,7 +45,6 @@ export class VenueController {
       next(error);
     }
   }
-  // @ts-ignore
 
   async updateVenue(req: Request, res: Response, next: NextFunction) {
     try {
@@ -65,7 +64,6 @@ export class VenueController {
       next(error);
     }
   }
-  // @ts-ignore
 
   async deleteVenue(req: Request, res: Response, next: NextFunction) {
     try {

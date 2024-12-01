@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es2016",
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "target": "es2017",
+    "lib": ["es2019", "esnext.asynciterable"],
+    "moduleResolution": "node",
     "module": "commonjs",
     "outDir": "./dist",
     "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },

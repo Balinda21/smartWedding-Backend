@@ -2,7 +2,7 @@
 import { Express, Request, Response } from "express";
 import authRoutes from "./auth/authRoutes";
 import venueRoutes from "./venue/venueRoutes";
-import photographerRoutes from "./photographer/photographerRoutes"; // Add this import
+import photographerRoutes from "./photographer/photographerRoutes";
 
 const registerRoutes = (app: Express) => {
   // Auth routes
@@ -11,7 +11,7 @@ const registerRoutes = (app: Express) => {
   // Venue routes
   app.use("/api/venues", venueRoutes);
 
-  // Photographer routes - Add this
+  // Photographer routes
   app.use("/api/photographers", photographerRoutes);
 
   // Health check
