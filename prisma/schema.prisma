@@ -149,3 +149,40 @@ model DJ {
   @@index([location])
   @@index([price])
 }
+
+
+model Gift {
+  id              Int      @id @default(sequence())
+  name            String
+  description     String
+  price           Float
+  images          String[] 
+  categories      String[] 
+  
+  // Product details
+  brand           String?
+  inStock         Boolean  @default(true)
+  stockQuantity   Int
+  sku             String   @unique 
+  dimensions      Json?    
+  weight          Float?   
+  
+  // Gift specific fields
+  isCustomizable  Boolean  @default(false)
+  customization   Json?    
+  occasion        String[]
+  style           String[] 
+  
+  // Additional features
+  tags            String[] 
+  featured        Boolean  @default(false)
+  rating          Float?
+  reviews         Json?  
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([price])
+  @@index([name])
+  @@index([categories])
+}

@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const cakeController_1 = require("../../controllers/cake/cakeController");
+const router = (0, express_1.Router)();
+const cakeController = new cakeController_1.CakeController();
+router.post("/", cakeController.createCake.bind(cakeController));
+router.get("/", cakeController.getAllCakes.bind(cakeController));
+router.get("/:id", cakeController.getCakeById.bind(cakeController));
+router.put("/:id", cakeController.updateCake.bind(cakeController));
+router.delete("/:id", cakeController.deleteCake.bind(cakeController));
+exports.default = router;

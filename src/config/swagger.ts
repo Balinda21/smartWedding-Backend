@@ -1261,6 +1261,202 @@ const swaggerDocument: SwaggerOptions = {
       }
     }
   }
+},
+"/api/gifts": {
+  post: {
+    tags: ["Gifts"],
+    summary: "Create a new gift",
+    security: [{ bearerAuth: [] }],
+    requestBody: {
+      required: true,
+      content: {
+        "application/json": {
+          schema: { $ref: "#/components/schemas/Gift" }
+        }
+      }
+    },
+    responses: {
+      "201": {
+        description: "Gift created successfully",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                status: { type: "boolean" },
+                message: { type: "string" },
+                data: { $ref: "#/components/schemas/Gift" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  get: {
+    tags: ["Gifts"],
+    summary: "Get all gifts",
+    parameters: [
+      {
+        name: "minPrice",
+        in: "query",
+        schema: { type: "number" }
+      },
+      {
+        name: "maxPrice",
+        in: "query",
+        schema: { type: "number" }
+      },
+      {
+        name: "categories",
+        in: "query",
+        schema: {
+          type: "array",
+          items: { type: "string" }
+        }
+      },
+      {
+        name: "occasion",
+        in: "query",
+        schema: {
+          type: "array",
+          items: { type: "string" }
+        }
+      },
+      {
+        name: "style",
+        in: "query",
+        schema: {
+          type: "array",
+          items: { type: "string" }
+        }
+      },
+      {
+        name: "inStock",
+        in: "query",
+        schema: { type: "boolean" }
+      }
+    ],
+    responses: {
+      "200": {
+        description: "Success",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                status: { type: "boolean" },
+                message: { type: "string" },
+                data: {
+                  type: "array",
+                  items: { $ref: "#/components/schemas/Gift" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+},
+"/api/gifts/{id}": {
+  get: {
+    tags: ["Gifts"],
+    summary: "Get gift by ID",
+    parameters: [
+      {
+        name: "id",
+        in: "path",
+        required: true,
+        schema: { type: "integer" }
+      }
+    ],
+    responses: {
+      "200": {
+        description: "Success",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                status: { type: "boolean" },
+                message: { type: "string" },
+                data: { $ref: "#/components/schemas/Gift" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  put: {
+    tags: ["Gifts"],
+    summary: "Update gift",
+    security: [{ bearerAuth: [] }],
+    parameters: [
+      {
+        name: "id",
+        in: "path",
+        required: true,
+        schema: { type: "integer" }
+      }
+    ],
+    requestBody: {
+      required: true,
+      content: {
+        "application/json": {
+          schema: { $ref: "#/components/schemas/Gift" }
+        }
+      }
+    },
+    responses: {
+      "200": {
+        description: "Success",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                status: { type: "boolean" },
+                message: { type: "string" },
+                data: { $ref: "#/components/schemas/Gift" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  delete: {
+    tags: ["Gifts"],
+    summary: "Delete gift",
+    security: [{ bearerAuth: [] }],
+    parameters: [
+      {
+        name: "id",
+        in: "path",
+        required: true,
+        schema: { type: "integer" }
+      }
+    ],
+    responses: {
+      "200": {
+        description: "Success",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                status: { type: "boolean" },
+                message: { type: "string" },
+                data: { type: "null" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 }
 };
