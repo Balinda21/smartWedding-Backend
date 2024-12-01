@@ -3,9 +3,9 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import swaggerUi from "swagger-ui-express";
-import { config } from "./src/config/config";
-import swaggerDocument from "./src/config/swagger";
-import registerRoutes from "./src/routes";
+import { config } from "./config/config";
+import swaggerDocument from "./config/swagger";
+import registerRoutes from "./routes";
 
 const app = express();
 
