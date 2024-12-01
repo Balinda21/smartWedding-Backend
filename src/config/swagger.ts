@@ -952,9 +952,317 @@ const swaggerDocument: SwaggerOptions = {
    }
  }
 },
-
+"/api/cakes": {
+  post: {
+    tags: ["Cakes"],
+    summary: "Create a new cake vendor",
+    security: [{ bearerAuth: [] }],
+    requestBody: {
+      required: true,
+      content: {
+        "application/json": {
+          schema: { $ref: "#/components/schemas/Cake" }
+        }
+      }
     },
+    responses: {
+      "201": {
+        description: "Cake vendor created successfully",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                status: { type: "boolean" },
+                message: { type: "string" },
+                data: { $ref: "#/components/schemas/Cake" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  get: {
+    tags: ["Cakes"],
+    summary: "Get all cake vendors",
+    responses: {
+      "200": {
+        description: "Success",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                status: { type: "boolean" },
+                message: { type: "string" },
+                data: {
+                  type: "array",
+                  items: { $ref: "#/components/schemas/Cake" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
-
+},
+"/api/cakes/{id}": {
+  get: {
+    tags: ["Cakes"],
+    summary: "Get cake vendor by ID",
+    parameters: [
+      {
+        name: "id",
+        in: "path",
+        required: true,
+        schema: { type: "integer" }
+      }
+    ],
+    responses: {
+      "200": {
+        description: "Success",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                status: { type: "boolean" },
+                message: { type: "string" },
+                data: { $ref: "#/components/schemas/Cake" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  put: {
+    tags: ["Cakes"],
+    summary: "Update cake vendor",
+    security: [{ bearerAuth: [] }],
+    parameters: [
+      {
+        name: "id",
+        in: "path",
+        required: true,
+        schema: { type: "integer" }
+      }
+    ],
+    requestBody: {
+      required: true,
+      content: {
+        "application/json": {
+          schema: { $ref: "#/components/schemas/Cake" }
+        }
+      }
+    },
+    responses: {
+      "200": {
+        description: "Success",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                status: { type: "boolean" },
+                message: { type: "string" },
+                data: { $ref: "#/components/schemas/Cake" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  delete: {
+    tags: ["Cakes"],
+    summary: "Delete cake vendor",
+    security: [{ bearerAuth: [] }],
+    parameters: [
+      {
+        name: "id",
+        in: "path",
+        required: true,
+        schema: { type: "integer" }
+      }
+    ],
+    responses: {
+      "200": {
+        description: "Success",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                status: { type: "boolean" },
+                message: { type: "string" },
+                data: { type: "null" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+},
+"/api/djs": {
+  post: {
+    tags: ["DJs"],
+    summary: "Create a new DJ",
+    security: [{ bearerAuth: [] }],
+    requestBody: {
+      required: true,
+      content: {
+        "application/json": {
+          schema: { $ref: "#/components/schemas/DJ" }
+        }
+      }
+    },
+    responses: {
+      "201": {
+        description: "DJ created successfully",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                status: { type: "boolean" },
+                message: { type: "string" },
+                data: { $ref: "#/components/schemas/DJ" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  get: {
+    tags: ["DJs"],
+    summary: "Get all DJs",
+    responses: {
+      "200": {
+        description: "Success",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                status: { type: "boolean" },
+                message: { type: "string" },
+                data: {
+                  type: "array",
+                  items: { $ref: "#/components/schemas/DJ" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+},
+"/api/djs/{id}": {
+  get: {
+    tags: ["DJs"],
+    summary: "Get DJ by ID",
+    parameters: [
+      {
+        name: "id",
+        in: "path",
+        required: true,
+        schema: { type: "integer" }
+      }
+    ],
+    responses: {
+      "200": {
+        description: "Success",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                status: { type: "boolean" },
+                message: { type: "string" },
+                data: { $ref: "#/components/schemas/DJ" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  put: {
+    tags: ["DJs"],
+    summary: "Update DJ",
+    security: [{ bearerAuth: [] }],
+    parameters: [
+      {
+        name: "id",
+        in: "path",
+        required: true,
+        schema: { type: "integer" }
+      }
+    ],
+    requestBody: {
+      required: true,
+      content: {
+        "application/json": {
+          schema: { $ref: "#/components/schemas/DJ" }
+        }
+      }
+    },
+    responses: {
+      "200": {
+        description: "Success",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                status: { type: "boolean" },
+                message: { type: "string" },
+                data: { $ref: "#/components/schemas/DJ" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  delete: {
+    tags: ["DJs"],
+    summary: "Delete DJ",
+    security: [{ bearerAuth: [] }],
+    parameters: [
+      {
+        name: "id",
+        in: "path",
+        required: true,
+        schema: { type: "integer" }
+      }
+    ],
+    responses: {
+      "200": {
+        description: "Success",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                status: { type: "boolean" },
+                message: { type: "string" },
+                data: { type: "null" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+}
+};
 
 export default swaggerDocument;

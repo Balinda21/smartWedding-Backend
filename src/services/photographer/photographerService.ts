@@ -1,4 +1,3 @@
-// src/services/photographer/photographerService.ts
 import { prisma } from "../../lib/prisma";
 import { CreatePhotographerDTO } from "../../types/photographer/photographerTypes";
 
