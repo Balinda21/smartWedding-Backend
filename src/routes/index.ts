@@ -2,19 +2,17 @@
 import { Express, Request, Response } from "express";
 import authRoutes from "./auth/authRoutes";
 import venueRoutes from "./venue/venueRoutes";
-import photographerRoutes from "./photographer/photographerRoutes"; // Add this import
+import photographerRoutes from "./photographer/photographerRoutes";
+import cakeRoutes from "./cake/cakeRoutes";
+import djRoutes from "./dj/djRoutes";
 
 const registerRoutes = (app: Express) => {
-  // Auth routes
   app.use("/api/auth", authRoutes);
-
-  // Venue routes
   app.use("/api/venues", venueRoutes);
-
-  // Photographer routes - Add this
   app.use("/api/photographers", photographerRoutes);
+  app.use("/api/cakes", cakeRoutes);
+  app.use("/api/djs", djRoutes);
 
-  // Health check
   app.get("/health", (_req: Request, res: Response) => {
     res.status(200).json({ status: "OK", message: "Server is running" });
   });

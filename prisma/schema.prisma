@@ -96,3 +96,56 @@ model Photographer {
   @@index([location])
   @@index([price])
 }
+
+model Cake {
+  id              Int      @id @default(sequence())
+  name            String   // Name of the baker/bakery
+  email           String   @unique
+  phone           String
+  location        String
+  description     String   // About the baker/bakery
+  specialties     String[] // e.g., ["Wedding Cakes", "Cupcakes", "Custom Design"]
+  portfolio       String[] // Images of previous cakes
+  priceRange      Json     // e.g., {"min": 300, "max": 3000}
+  servingSizes    Json     // e.g., {"50": 400, "100": 700, "150": 1000}
+  flavors         String[] // Available cake flavors
+  fillings        String[] // Available fillings
+  designs         String[] // Types of designs offered
+  dietaryOptions  String[] // e.g., ["Gluten-Free", "Vegan", "Dairy-Free"]
+  leadTime        Int      // Required notice in days
+  available       Boolean  @default(true)
+  tastingPrice    Float?   // Cost of tasting session if any
+  deliveryFee     Float?
+  rating          Float?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([location])
+  @@index([name])
+}
+
+model DJ {
+  id              Int      @id @default(sequence())
+  name            String   // DJ name or company name
+  email           String   @unique
+  phone           String
+  location        String
+  description     String
+  experience      Int      // Years of experience
+  portfolio       String[] // Audio/video samples URLs
+  price           Float    // Base price per event
+  packages        Json     // Different packages offered
+  musicGenres     String[] // Genres they specialize in
+  equipment       String[] // Equipment they provide
+  eventTypes      String[] // Types of events they service
+  setupTime       Int      // Setup time needed in hours
+  performanceTime Int      // Standard performance duration in hours
+  available       Boolean  @default(true)
+  rating          Float?
+  reviews         Json?    // Store some featured reviews
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([location])
+  @@index([price])
+}

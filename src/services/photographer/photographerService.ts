@@ -1,17 +1,13 @@
-// src/services/photographer/photographerService.ts
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../lib/prisma";
 import { CreatePhotographerDTO } from "../../types/photographer/photographerTypes";
-
-const prisma = new PrismaClient();
 
 export class PhotographerService {
   async createPhotographer(data: CreatePhotographerDTO) {
     try {
-      // @ts-ignore
       const photographer = await prisma.photographer.create({
         data: {
           ...data,
-          packages: JSON.stringify(data.packages), // Convert packages array to string
+          packages: JSON.stringify(data.packages),
         },
       });
 
@@ -20,7 +16,7 @@ export class PhotographerService {
         message: "Photographer created successfully",
         data: {
           ...photographer,
-          packages: JSON.parse(photographer.packages as string), // Parse back to array when returning
+          packages: JSON.parse(photographer.packages as string),
         },
       };
     } catch (error) {
@@ -35,8 +31,6 @@ export class PhotographerService {
 
   async getPhotographers() {
     try {
-      // @ts-ignore
-
       const photographers = await prisma.photographer.findMany({
         orderBy: {
           createdAt: "desc",
@@ -46,7 +40,10 @@ export class PhotographerService {
       return {
         status: true,
         message: "Photographers retrieved successfully",
-        data: photographers,
+        data: photographers.map((photographer) => ({
+          ...photographer,
+          packages: JSON.parse(photographer.packages as string),
+        })),
       };
     } catch (error) {
       console.error("Get photographers error:", error);
@@ -60,8 +57,6 @@ export class PhotographerService {
 
   async getPhotographerById(id: number) {
     try {
-      // @ts-ignore
-
       const photographer = await prisma.photographer.findUnique({
         where: { id },
       });
@@ -77,13 +72,91 @@ export class PhotographerService {
       return {
         status: true,
         message: "Photographer retrieved successfully",
-        data: photographer,
+        data: {
+          ...photographer,
+          packages: JSON.parse(photographer.packages as string),
+        },
       };
     } catch (error) {
       console.error("Get photographer error:", error);
       return {
         status: false,
         message: "Failed to retrieve photographer",
+        data: null,
+      };
+    }
+  }
+
+  async updatePhotographer(id: number, data: Partial<CreatePhotographerDTO>) {
+    try {
+      const existingPhotographer = await prisma.photographer.findUnique({
+        where: { id },
+      });
+
+      if (!existingPhotographer) {
+        return {
+          status: false,
+          message: "Photographer not found",
+          data: null,
+        };
+      }
+
+      const updatedData = {
+        ...data,
+        packages: data.packages ? JSON.stringify(data.packages) : undefined,
+      };
+
+      const photographer = await prisma.photographer.update({
+        where: { id },
+        data: updatedData,
+      });
+
+      return {
+        status: true,
+        message: "Photographer updated successfully",
+        data: {
+          ...photographer,
+          packages: JSON.parse(photographer.packages as string),
+        },
+      };
+    } catch (error) {
+      console.error("Photographer update error:", error);
+      return {
+        status: false,
+        message: "Failed to update photographer",
+        data: null,
+      };
+    }
+  }
+
+  async deletePhotographer(id: number) {
+    try {
+      const existingPhotographer = await prisma.photographer.findUnique({
+        where: { id },
+      });
+
+      if (!existingPhotographer) {
+        return {
+          status: false,
+          message: "Photographer not found",
+          data: null,
+        };
+      }
+
+      await prisma.photographer.delete({
+        where: { id },
+      });
+
+      return {
+        status: true,
+        message: "Photographer deleted successfully",
+        data: null,
+      };
+    } catch (error) {
+      console.error("Photographer deletion error:", error);
+      return {
+        status: false,
+        message: "Failed to delete photographer",
         data: null,
       };
     }
